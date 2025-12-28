@@ -1,0 +1,53 @@
+# kube-prometheus-stack minimal values for K3s
+# enable only:
+# - Prometheus
+# - Grafana
+# - node-exporter
+# - kube-state-metrics
+# and disable Alertmanager + some control-plane scraping which is messy on K3s.
+
+alertmanager:
+  enabled: false
+
+grafana:
+  enabled: true
+
+prometheus:
+  enabled: true
+  prometheusSpec:
+    retention: 2d
+    scrapeInterval: 30s
+    evaluationInterval: 30s
+
+    # Important: allow ServiceMonitors/PodMonitors that we create ourselves
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+
+prometheus-node-exporter:
+  enabled: true
+
+kube-state-metrics:
+  enabled: true
+
+# K3s
+kubeApiServer:
+  enabled: true
+
+kubeControllerManager:
+  enabled: false
+
+kubeScheduler:
+  enabled: false
+
+kubeEtcd:
+  enabled: false
+
+kubeProxy:
+  enabled: false
+
+coreDns:
+  enabled: true
+
+# default rules are fine for learning (they just add recording/alert rules)
+defaultRules:
+  create: true
