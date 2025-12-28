@@ -1,4 +1,4 @@
-# kube-prometheus-stack minimal values for K3s
+# minimal values
 # enable only:
 # - Prometheus
 # - Grafana
@@ -19,7 +19,7 @@ prometheus:
     scrapeInterval: 30s
     evaluationInterval: 30s
 
-    # Important: allow ServiceMonitors/PodMonitors that we create ourselves
+
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
 
@@ -48,6 +48,6 @@ kubeProxy:
 coreDns:
   enabled: true
 
-# default rules are fine for learning (they just add recording/alert rules)
+
 defaultRules:
   create: true
